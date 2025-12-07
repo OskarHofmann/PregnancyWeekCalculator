@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #ffd4e5 0%, #ffe9f3 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, #ff9eb7 0%, #ffb3c6 100%);
+    padding: 30px 20px;
+    text-align: center;
+}
+
+header h1 {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+main {
+    padding: 30px 20px;
+}
+
+.info-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+}
+
+.info-card:last-child {
+    margin-bottom: 0;
+}
+
+.info-card.highlight {
+    background: linear-gradient(135deg, #fff5f8 0%, #ffe9f3 100%);
+    border: 2px solid #ffb3c6;
+}
+
+.label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.value {
+    font-size: 2rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.week-number {
+    color: #ff6b9d;
+    font-size: 3rem;
+}
+
+.fixed-date {
+    color: #555;
+}
+
+.date-input {
+    width: 100%;
+    font-size: 1.5rem;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-family: inherit;
+    color: #333;
+    background: white;
+    transition: border-color 0.3s;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #ff9eb7;
+}
+
+/* Mobile optimizations */
+@media (max-width: 400px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .value {
+        font-size: 1.7rem;
+    }
+    
+    .week-number {
+        font-size: 2.5rem;
+    }
+    
+    .date-input {
+        font-size: 1.2rem;
+    }
+}
+
+/* PWA install prompt styling */
+.install-prompt {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff6b9d;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 30px;
+    box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
+    display: none;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.install-prompt button {
+    background: white;
+    color: #ff6b9d;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}

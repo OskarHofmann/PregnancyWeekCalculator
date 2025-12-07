@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffd4e5">
+    <meta name="description" content="Schwangerschaftswochen-Rechner">
+    <title>Schwangerschaftswochen</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤰 Schwangerschaftswochen</h1>
+        </header>
+        
+        <main>
+            <div class="info-card">
+                <div class="label">Beginn letzter Periode</div>
+                <div class="value fixed-date">02.11.2025</div>
+            </div>
+
+            <div class="info-card highlight">
+                <div class="label">Aktuelle Woche</div>
+                <div class="value week-number" id="currentWeek">-</div>
+            </div>
+
+            <div class="info-card">
+                <div class="label">Vor. Geburtstermin</div>
+                <input 
+                    type="date" 
+                    id="dueDate" 
+                    class="date-input"
+                    value="2026-08-09">
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
