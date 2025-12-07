@@ -1,10 +1,10 @@
 const CACHE_NAME = 'schwangerschaftswochen-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/script.js',
-  '/manifest.json'
+  './',
+  './index.html',
+  './styles.css',
+  './script.js',
+  './manifest.json'
 ];
 
 // Install service worker and cache files
