@@ -1,6 +1,49 @@
 // Start date (fixed): 02.11.2025
 const START_DATE = new Date('2025-11-02');
 
+// Baby size comparison data (week -> fruit/veggie)
+const BABY_SIZES = {
+    4: { emoji: '🫘', name: 'Mohnsamen', size: '2mm' },
+    5: { emoji: '🌱', name: 'Sesamkorn', size: '2mm' },
+    6: { emoji: '🫘', name: 'Linse', size: '4mm' },
+    7: { emoji: '🫐', name: 'Heidelbeere', size: '1cm' },
+    8: { emoji: '🫘', name: 'Kidneybohne', size: '1,6cm' },
+    9: { emoji: '🍇', name: 'Weintraube', size: '2,3cm' },
+    10: { emoji: '🫒', name: 'Olive', size: '3cm' },
+    11: { emoji: '🍓', name: 'Erdbeere', size: '4cm' },
+    12: { emoji: '🥜', name: 'Pflaume', size: '5cm' },
+    13: { emoji: '🍋', name: 'Zitrone', size: '7cm' },
+    14: { emoji: '🥝', name: 'Kiwi', size: '8,5cm' },
+    15: { emoji: '🍎', name: 'Apfel', size: '10cm' },
+    16: { emoji: '🥑', name: 'Avocado', size: '11,5cm' },
+    17: { emoji: '🍐', name: 'Birne', size: '13cm' },
+    18: { emoji: '🫑', name: 'Paprika', size: '14cm' },
+    19: { emoji: '🍅', name: 'Tomate', size: '15cm' },
+    20: { emoji: '🍌', name: 'Banane', size: '16,5cm' },
+    21: { emoji: '🥕', name: 'Karotte', size: '18cm' },
+    22: { emoji: '🥭', name: 'Mango', size: '19cm' },
+    23: { emoji: '🍆', name: 'Aubergine', size: '20cm' },
+    24: { emoji: '🌽', name: 'Maiskolben', size: '21cm' },
+    25: { emoji: '🥒', name: 'Gurke', size: '22cm' },
+    26: { emoji: '🥬', name: 'Lauch', size: '23cm' },
+    27: { emoji: '🥦', name: 'Blumenkohl', size: '24cm' },
+    28: { emoji: '🥥', name: 'Kokosnuss', size: '25cm' },
+    29: { emoji: '🍈', name: 'Honigmelone', size: '26cm' },
+    30: { emoji: '🥬', name: 'Weißkohl', size: '27cm' },
+    31: { emoji: '🥥', name: 'Große Kokosnuss', size: '28cm' },
+    32: { emoji: '🍍', name: 'Ananas', size: '29cm' },
+    33: { emoji: '🎃', name: 'Hokkaido-Kürbis', size: '30cm' },
+    34: { emoji: '🍈', name: 'Cantaloupe-Melone', size: '32cm' },
+    35: { emoji: '🍉', name: 'Kleine Wassermelone', size: '33cm' },
+    36: { emoji: '🎃', name: 'Kürbis', size: '34cm' },
+    37: { emoji: '🍉', name: 'Wassermelone', size: '35cm' },
+    38: { emoji: '🎃', name: 'Großer Kürbis', size: '36cm' },
+    39: { emoji: '🍉', name: 'Große Wassermelone', size: '37cm' },
+    40: { emoji: '🎃', name: 'Riesenkürbis', size: '38cm' },
+    41: { emoji: '🍉', name: 'Riesenmelone', size: '39cm' },
+    42: { emoji: '🎃', name: 'XXL-Kürbis', size: '40cm' }
+};
+
 // Function to calculate pregnancy week (rounded up)
 function calculateWeek() {
     const today = new Date();
@@ -14,11 +57,28 @@ function calculateWeek() {
 function updateWeekDisplay() {
     const currentWeek = calculateWeek();
     const weekElement = document.getElementById('currentWeek');
+    const fruitEmojiElement = document.getElementById('fruitEmoji');
+    const fruitNameElement = document.getElementById('fruitName');
     
     if (currentWeek >= 0) {
         weekElement.textContent = `SSW ${currentWeek}`;
+        
+        // Update baby size
+        const sizeData = BABY_SIZES[currentWeek];
+        if (sizeData) {
+            fruitEmojiElement.textContent = sizeData.emoji;
+            fruitNameElement.textContent = sizeData.name;
+        } else if (currentWeek < 4) {
+            fruitEmojiElement.textContent = '🔬';
+            fruitNameElement.textContent = 'Noch zu klein';
+        } else {
+            fruitEmojiElement.textContent = '👶';
+            fruitNameElement.textContent = 'Bereit zur Geburt!';
+        }
     } else {
         weekElement.textContent = 'Noch nicht begonnen';
+        fruitEmojiElement.textContent = '🤰';
+        fruitNameElement.textContent = '-';
     }
 }
 

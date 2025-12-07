@@ -76,6 +76,22 @@ main {
     font-size: 3rem;
 }
 
+.baby-size .value {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.5rem;
+}
+
+.fruit-emoji {
+    font-size: 3rem;
+}
+
+.fruit-name {
+    color: #ff6b9d;
+    font-weight: 600;
+}
+
 .fixed-date {
     color: #555;
 }
