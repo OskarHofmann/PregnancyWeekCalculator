@@ -51,33 +51,35 @@ const BABY_SIZES = {
     42: { emoji: '🎃', name: 'XXL-Kürbis', size: '40 cm' }
 };
 
-// Function to calculate pregnancy week (rounded up)
+// Function to calculate pregnancy week and days
 function calculateWeek() {
     const startDate = getStartDate();
     if (!startDate) return null;
     
     const today = new Date();
     const diffTime = today - startDate;
-    const diffDays = diffTime / (1000 * 60 * 60 * 24);
-    const weeks = Math.ceil(diffDays / 7);
-    return weeks;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const weeks = Math.floor(diffDays / 7);
+    const days = diffDays % 7;
+    return { weeks, days, totalWeeks: weeks };
 }
 
 // Function to update the week display
 function updateWeekDisplay() {
-    const currentWeek = calculateWeek();
+    const weekData = calculateWeek();
     const weekElement = document.getElementById('currentWeek');
     const fruitEmojiElement = document.getElementById('fruitEmoji');
     const fruitNameElement = document.getElementById('fruitName');
     
-    if (currentWeek === null) {
+    if (weekData === null) {
         weekElement.textContent = 'Bitte Startdatum eingeben';
         fruitEmojiElement.textContent = '📅';
         fruitNameElement.textContent = 'Datum erforderlich';
-    } else if (currentWeek >= 0) {
-        weekElement.textContent = `SSW ${currentWeek}`;
+    } else if (weekData.weeks >= 0) {
+        weekElement.textContent = `SSW ${weekData.weeks}+${weekData.days}`;
         
-        // Update baby size
+        // Update baby size based on full weeks
+        const currentWeek = weekData.totalWeeks;
         const sizeData = BABY_SIZES[currentWeek];
         if (sizeData) {
             fruitEmojiElement.textContent = sizeData.emoji;
