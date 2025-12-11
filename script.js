@@ -1,5 +1,12 @@
-// Start date (fixed): 02.11.2025
-const START_DATE = new Date('2025-11-02');
+// Get start date from localStorage or use default
+function getStartDate() {
+    const saved = localStorage.getItem('pregnancyStartDate');
+    if (saved) {
+        return new Date(saved);
+    }
+    // Default date if not set (will prompt user to set it)
+    return null;
+}
 
 // Baby size comparison data (week -> fruit/veggie)
 const BABY_SIZES = {
@@ -46,8 +53,11 @@ const BABY_SIZES = {
 
 // Function to calculate pregnancy week (rounded up)
 function calculateWeek() {
+    const startDate = getStartDate();
+    if (!startDate) return null;
+    
     const today = new Date();
-    const diffTime = today - START_DATE;
+    const diffTime = today - startDate;
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
     const weeks = Math.ceil(diffDays / 7);
     return weeks;
@@ -60,7 +70,11 @@ function updateWeekDisplay() {
     const fruitEmojiElement = document.getElementById('fruitEmoji');
     const fruitNameElement = document.getElementById('fruitName');
     
-    if (currentWeek >= 0) {
+    if (currentWeek === null) {
+        weekElement.textContent = 'Bitte Startdatum eingeben';
+        fruitEmojiElement.textContent = '📅';
+        fruitNameElement.textContent = 'Datum erforderlich';
+    } else if (currentWeek >= 0) {
         weekElement.textContent = `SSW ${currentWeek}`;
         
         // Update baby size
@@ -84,8 +98,39 @@ function updateWeekDisplay() {
 
 // Initialize the app
 function init() {
+    const startDateInput = document.getElementById('startDate');
+    const dueDateInput = document.getElementById('dueDate');
+    
+    // Load saved dates from localStorage
+    const savedStartDate = localStorage.getItem('pregnancyStartDate');
+    if (savedStartDate) {
+        startDateInput.value = savedStartDate;
+    }
+    
+    const savedDueDate = localStorage.getItem('pregnancyDueDate');
+    if (savedDueDate) {
+        dueDateInput.value = savedDueDate;
+    } else {
+        dueDateInput.value = '2026-08-09'; // Default
+    }
+    
     // Update week display on load
     updateWeekDisplay();
+    
+    // Save start date when changed
+    startDateInput.addEventListener('change', (e) => {
+        if (e.target.value) {
+            localStorage.setItem('pregnancyStartDate', e.target.value);
+            updateWeekDisplay();
+        }
+    });
+    
+    // Save due date when changed
+    dueDateInput.addEventListener('change', (e) => {
+        if (e.target.value) {
+            localStorage.setItem('pregnancyDueDate', e.target.value);
+        }
+    });
     
     // Update week display at midnight
     const now = new Date();
@@ -97,13 +142,6 @@ function init() {
         // Then update every 24 hours
         setInterval(updateWeekDisplay, 24 * 60 * 60 * 1000);
     }, timeUntilMidnight);
-    
-    // Optional: Add event listener to due date input
-    const dueDateInput = document.getElementById('dueDate');
-    dueDateInput.addEventListener('change', (e) => {
-        console.log('Geburtstermin geändert zu:', e.target.value);
-        // You can add additional logic here if needed
-    });
 }
 
 // Register service worker for PWA functionality
