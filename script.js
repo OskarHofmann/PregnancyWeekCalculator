@@ -8,6 +8,23 @@ function getStartDate() {
     return null;
 }
 
+// Calculate due date from start date (LMP + 280 days)
+function calculateDueDate(startDate) {
+    if (!startDate) return null;
+    const dueDate = new Date(startDate);
+    dueDate.setDate(dueDate.getDate() + 280);
+    return dueDate;
+}
+
+// Format date as YYYY-MM-DD for input field
+function formatDateForInput(date) {
+    if (!date) return '';
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 // Baby size comparison data (week -> fruit/veggie)
 const BABY_SIZES = {
     4: { emoji: '🫘', name: 'Mohnsamen', size: '2 mm' },
@@ -107,27 +124,37 @@ function init() {
     const savedStartDate = localStorage.getItem('pregnancyStartDate');
     if (savedStartDate) {
         startDateInput.value = savedStartDate;
-    }
-    
-    const savedDueDate = localStorage.getItem('pregnancyDueDate');
-    if (savedDueDate) {
-        dueDateInput.value = savedDueDate;
-    } else {
-        dueDateInput.value = '2026-08-09'; // Default
+        
+        // Calculate or use saved due date
+        const savedDueDate = localStorage.getItem('pregnancyDueDate');
+        if (savedDueDate) {
+            dueDateInput.value = savedDueDate;
+        } else {
+            // Calculate due date from start date
+            const calculatedDueDate = calculateDueDate(new Date(savedStartDate));
+            dueDateInput.value = formatDateForInput(calculatedDueDate);
+            localStorage.setItem('pregnancyDueDate', dueDateInput.value);
+        }
     }
     
     // Update week display on load
     updateWeekDisplay();
     
-    // Save start date when changed
+    // Save start date when changed and recalculate due date
     startDateInput.addEventListener('change', (e) => {
         if (e.target.value) {
             localStorage.setItem('pregnancyStartDate', e.target.value);
+            
+            // Recalculate due date
+            const calculatedDueDate = calculateDueDate(new Date(e.target.value));
+            dueDateInput.value = formatDateForInput(calculatedDueDate);
+            localStorage.setItem('pregnancyDueDate', dueDateInput.value);
+            
             updateWeekDisplay();
         }
     });
     
-    // Save due date when changed
+    // Save due date when manually changed
     dueDateInput.addEventListener('change', (e) => {
         if (e.target.value) {
             localStorage.setItem('pregnancyDueDate', e.target.value);
