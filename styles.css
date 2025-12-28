@@ -92,6 +92,10 @@ main {
     font-weight: 600;
 }
 
+.fruit-size-value {
+    white-space: nowrap;
+}
+
 .fixed-date {
     color: #555;
 }

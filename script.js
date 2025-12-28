@@ -100,7 +100,7 @@ function updateWeekDisplay() {
         const sizeData = BABY_SIZES[currentWeek];
         if (sizeData) {
             fruitEmojiElement.textContent = sizeData.emoji;
-            fruitNameElement.textContent = `${sizeData.name} (${sizeData.size})`;
+            fruitNameElement.innerHTML = `${sizeData.name} <span class="fruit-size-value">(${sizeData.size})</span>`;
         } else if (currentWeek < 4) {
             fruitEmojiElement.textContent = '🔬';
             fruitNameElement.textContent = 'Noch zu klein';
