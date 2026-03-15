@@ -42,7 +42,7 @@ const BABY_SIZES = {
     16: { emoji: '🥑', name: 'Avocado', size: '11,5 cm' },
     17: { emoji: '🍐', name: 'Birne', size: '13 cm' },
     18: { emoji: '🫑', name: 'Paprika', size: '14 cm' },
-    19: { emoji: '🍅', name: 'Tomate', size: '15 cm' },
+    19: { emoji: '🥭', name: 'Mango', size: '15 cm' },
     20: { emoji: '🍌', name: 'Banane', size: '16,5 cm' },
     21: { emoji: '🥕', name: 'Karotte', size: '18 cm' },
     22: { emoji: '🥭', name: 'Mango', size: '19 cm' },
